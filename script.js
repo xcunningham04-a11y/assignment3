@@ -13,3 +13,50 @@ function getMults() {
         }
     }
 }
+
+
+
+
+for (let i = 0; i < 10; i++) {
+    let btn = document.createElement("Button")
+    btn.innerHTML = "Placeholder"
+    btn.className = "dummy-button"
+    colorify(btn, Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256))
+    document.getElementById("colored-buttons").appendChild(btn)
+}
+
+
+let coloredButtons = document.querySelectorAll(`.dummy-button`)
+let originalColors = new Map()
+
+coloredButtons.forEach(button => {
+    let originalColor = window.getComputedStyle(button).getPropertyValue('background-color')
+    originalColors.set(button, originalColor);
+})
+
+
+function colorify(element, r, g, b) {
+    element.style.backgroundColor = `rgb(${r},${g},${b})`;
+}
+function colorAll(r, g, b) {
+    for (let i = 0; i < 10; i++) {
+        let btn = coloredButtons[i]
+        colorify(btn, r, g, b)
+    }
+}
+
+
+function randomColors() {
+    for (let i = 0; i < coloredButtons.length; i++) {
+        let btn = coloredButtons[i]
+        colorify(btn, Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256))
+    }
+}
+
+
+function reset() {
+
+    coloredButtons.forEach(button => {
+        button.style.backgroundColor = originalColors.get(button);
+    })
+}
